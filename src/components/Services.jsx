@@ -1,47 +1,60 @@
-// НАПРАВЛЕНИЯ / КАРТОЧКИ УСЛУГ (SERVICES)
-// Показываем, с какими категориями задач вы работаете.
+import { assetUrl } from '../lib/assetUrl';
+
+const formats = [
+  {
+    tag: 'Локации',
+    title: 'Фитнес-клубы и площадки',
+    image: 'assets/screen-12.jpg',
+    text: 'Привлечение посетителей через миссии, события на карте и партнёрские точки в приложении.',
+    points: ['Гео-миссии у адреса объекта', 'Совместные челленджи и акции', 'Промокоды и бонусы за активность'],
+  },
+  {
+    tag: 'Бренды',
+    title: 'Реклама и спецпроекты',
+    image: 'assets/screen-13.jpg',
+    text: 'Нативные интеграции в продуктовый контур: брендированные миссии, спонсорство и отчётность.',
+    points: ['Брендированные миссии и призы', 'Размещение в ленте и на карте', 'Метрики показов и вовлечения'],
+  },
+  {
+    tag: 'Город',
+    title: 'Муниципалитеты и фонды',
+    image: 'assets/screen-11.jpg',
+    text: 'Продвижение ЗОЖ, спортивной инфраструктуры и молодёжных программ через игровые механики.',
+    points: ['Кампании «активный город»', 'События в парках и на стадионах', 'Образовательные миссии'],
+  },
+];
+
 export default function Services() {
   return (
-    <section id="services" className="services-section">
+    <section id="formats" className="services-section">
       <div className="container">
-        <div className="section-header">
-          <h2>Направления работы</h2>
-          <p>Выберите подходящий формат под вашу задачу</p>
+        <div className="section-header section-header--left">
+          <p className="eyebrow">Форматы</p>
+          <h2>Точки соприкосновения с вашей задачей</h2>
+          <p>
+            Базовые модели сотрудничества можно комбинировать — от локального пилота до федеральной кампании с
+            единым медиапланом.
+          </p>
         </div>
 
         <div className="services-grid">
-          {/* Карточка 1 */}
-          <div className="service-card">
-            <div className="card-image-placeholder">[ Картинка 1 ]</div>
-            <div className="card-body">
-              <span className="card-tag">Базовый</span>
-              <h3>Для частных клиентов</h3>
-              <p>Быстрое решение повседневных задач с гарантией и вниманием к мелочам.</p>
-              <div className="card-price">от 850 ₽ / ед.</div>
-            </div>
-          </div>
-
-          {/* Карточка 2 */}
-          <div className="service-card">
-            <div className="card-image-placeholder">[ Картинка 2 ]</div>
-            <div className="card-body">
-              <span className="card-tag">Бизнес</span>
-              <h3>Для коммерческих предложений</h3>
-              <p>Большие объемы, официальные закрывающие документы и гибкий график.</p>
-              <div className="card-price">от 600 ₽ / ед.</div>
-            </div>
-          </div>
-
-          {/* Карточка 3 */}
-          <div className="service-card">
-            <div className="card-image-placeholder">[ Картинка 3 ]</div>
-            <div className="card-body">
-              <span className="card-tag">Эксклюзив</span>
-              <h3>Сложные и неизведанные формы</h3>
-              <p>Работа с нестандартными формами, специфическими задачами и целями.</p>
-              <div className="card-price">от 1 200 ₽ / ед.</div>
-            </div>
-          </div>
+          {formats.map((item) => (
+            <article key={item.title} className="service-card">
+              <div className="card-image">
+                <img src={assetUrl(item.image)} alt="" loading="lazy" />
+              </div>
+              <div className="card-body">
+                <span className="card-tag">{item.tag}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <ul className="card-points">
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

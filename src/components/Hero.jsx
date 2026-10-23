@@ -1,29 +1,50 @@
-// ПЕРВЫЙ ЭКРАН (HERO)
-// Самое важное место: за 3 секунды человек должен понять, о чем ваш сайт.
+import { assetUrl } from '../lib/assetUrl';
+
 export default function Hero() {
   return (
-    <section className="hero-section">
-      <div className="container hero-content">
+    <section className="hero-section" id="top">
+      <div className="container hero-grid">
+        <div className="hero-content">
+          <p className="eyebrow">Партнёрская программа</p>
 
-        {/* Главный оффер: Какую задачу вы решаете? */}
-        <h1 className="hero-title">
-          Главный заголовок: Опишите суть вашей идеи одной-двумя фразами
-        </h1>
+          <h1 className="hero-title">
+            Вовлечение аудитории через мобильный продукт с измеримым результатом
+          </h1>
 
-        {/* 2-3 предложения с деталями */}
-        <p className="hero-description">
-          Здесь напишите кратко: чем именно вы полезны клиенту, какие фишки
-          или технологии используете и почему стоит доверять именно вам.
-        </p>
+          <p className="hero-description">
+            КИСФИТ — фитнес-приложение с игровыми механиками: миссии, прогресс, командные активности и
+            геолокационные сценарии. Предлагаем партнёрам форматы интеграции с понятными KPI и юридическим
+            оформлением.
+          </p>
 
-        {/* Две основные кнопки действия */}
-        <div className="hero-actions">
-          <a href="#portfolio" className="btn btn-primary">
-            Посмотреть работы
-          </a>
-          <a href="#calculator" className="btn btn-outline">
-            Узнать стоимость
-          </a>
+          <ul className="hero-segments" aria-label="Типы партнёров">
+            <li>Фитнес-клубы и площадки</li>
+            <li>Бренды и рекламодатели</li>
+            <li>Городские и социальные проекты</li>
+          </ul>
+
+          <div className="hero-actions">
+            <a href="#formats" className="btn btn-primary">
+              Форматы сотрудничества
+            </a>
+            <a href="#contact" className="btn btn-outline">
+              Запросить презентацию
+            </a>
+          </div>
+
+          <p className="hero-note">
+            Дистрибуция: App Store · Google Play · RuStore · приложение бесплатно для пользователей
+          </p>
+        </div>
+
+        <div className="hero-visual">
+          <img
+            className="hero-screenshot"
+            src={assetUrl('assets/hero-app-screen.png')}
+            alt="Интерфейс приложения КИСФИТ"
+            width={390}
+            height={844}
+          />
         </div>
       </div>
     </section>

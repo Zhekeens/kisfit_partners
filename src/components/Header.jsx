@@ -1,23 +1,35 @@
-// ШАПКА САЙТА (HEADER)
-// Сюда выносим логотип, навигационные ссылки и быструю кнопку.
+import { assetUrl } from '../lib/assetUrl';
+
 export default function Header() {
   return (
     <header className="header">
       <div className="container header-container">
-        {/* Замените на название вашей команды, проекта или вставьте тег <img> с логотипом */}
-        <div className="logo">[ Мой Проект / Лого ]</div>
+        <a className="logo" href="#top">
+          <img
+            className="logo__img"
+            src={assetUrl('assets/kisfit-logo-wordmark.png')}
+            alt="КИСФИТ"
+            width={160}
+            height={48}
+          />
+          <span className="logo__badge">Partners</span>
+        </a>
 
-        {/* Ссылки с якорным переходом (#id) плавно ведут к нужным блокам ниже */}
-        <nav className="nav-menu">
-          <a href="#services">Услуги</a>
-          <a href="#calculator">Калькулятор</a>
-          <a href="#portfolio">Работы</a>
+        <nav className="nav-menu" aria-label="Навигация">
+          <a href="#formats">Форматы</a>
+          <a href="#about">Продукт</a>
+          <a href="#brief">Подбор</a>
           <a href="#contact">Контакты</a>
         </nav>
 
-        <a href="#calculator" className="btn btn-secondary btn-sm">
-          Рассчитать
-        </a>
+        <div className="header-actions">
+          <a href="https://kisfit.ru/" className="btn btn-ghost btn-sm" target="_blank" rel="noreferrer">
+            kisfit.ru
+          </a>
+          <a href="#contact" className="btn btn-primary btn-sm">
+            Связаться
+          </a>
+        </div>
       </div>
     </header>
   );

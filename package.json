@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "sync:assets": "node scripts/sync-public-assets.mjs",
+    "build:landing": "npm run sync:assets && vite build && rm -rf ../landing/partners && cp -R dist ../landing/partners",
     "lint": "oxlint",
     "preview": "vite preview"
   },

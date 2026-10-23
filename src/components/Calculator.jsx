@@ -1,77 +1,134 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-// ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР
-// Обратите внимание: вся логика формы хранится прямо здесь в useState
-// и не засоряет остальные части проекта!
+const recommendations = {
+  club: {
+    title: 'Фитнес-клуб / площадка',
+    text: 'Рекомендуем гео-миссии, чек-ины, совместные челленджи и промо-акции у вашего адреса. Хороший старт — пилот на 4–6 недель.',
+  },
+  brand: {
+    title: 'Бренд / рекламодатель',
+    text: 'Подойдут спонсорские миссии, брендированные награды, баннеры в приложении и отчётность по охвату и действиям пользователей.',
+  },
+  city: {
+    title: 'Город / фонд / НКО',
+    text: 'Фокус на кампаниях ЗОЖ, событиях в парках, образовательных миссиях и вовлечении молодёжи через игровые механики.',
+  },
+  edu: {
+    title: 'Образование / вуз / колледж',
+    text: 'Корпоративные лиги, соревнования между группами, миссии на кампусе и отчёты по активности для администрации.',
+  },
+};
+
 export default function Calculator() {
   const [formData, setFormData] = useState({
-    category: 'Частный дом',
-    volume: '100',
-    address: ''
+    partnerType: 'club',
+    city: '',
+    goal: 'reach',
+    budget: 'discuss',
   });
+  const [submitted, setSubmitted] = useState(false);
+
+  const hint = useMemo(() => recommendations[formData.partnerType], [formData.partnerType]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Расчет запрошен!\nОбъект: ${formData.category}\nОбъем: ${formData.volume}`);
+    setSubmitted(true);
   };
 
   return (
-    <section id="calculator" className="calculator-section">
+    <section id="brief" className="calculator-section section-band">
       <div className="container calc-container">
-        {/* Левая колонка: объясняем выгоду */}
         <div className="calc-info">
-          <h2>Рассчитайте стоимость за пару кликов</h2>
+          <p className="eyebrow">Подбор формата</p>
+          <h2>Ориентир по модели сотрудничества</h2>
           <p>
-            Заполните предварительные параметры, чтобы система помогла сориентироваться
-            по бюджету и срокам выполнения.
+            Короткий опрос помогает сопоставить вашу задачу с типовым форматом. Итоговые условия, сроки и бюджет
+            фиксируем после созвона и брифа.
           </p>
           <ul className="feature-list">
-            <li>✔ <b>Быстро:</b> расчет без звонков и ожидания</li>
-            <li>✔ <b>Удобно:</b> все параметры перед глазами</li>
-            <li>✔ <b>Понятно:</b> никаких скрытых наценок</li>
+            <li>
+              <b>Без обязательств</b> — предварительная рекомендация, не коммерческое предложение
+            </li>
+            <li>
+              <b>Пилот</b> — возможен локальный запуск на ограниченный период
+            </li>
+            <li>
+              <b>Масштаб</b> — от одной точки до федеральной кампании
+            </li>
           </ul>
         </div>
 
-        {/* Правая колонка: сама интерактивная форма */}
         <div className="calc-card">
-          <h3>Параметры расчета</h3>
+          <h3>Ваш запрос</h3>
           <form onSubmit={handleSubmit} className="calc-form">
             <div className="form-group">
-              <label>Тип объекта</label>
+              <label htmlFor="partnerType">Кто вы</label>
               <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                id="partnerType"
+                value={formData.partnerType}
+                onChange={(e) => {
+                  setSubmitted(false);
+                  setFormData({ ...formData, partnerType: e.target.value });
+                }}
               >
-                <option value="Частный дом">Частный дом / Квартира</option>
-                <option value="Коммерция">Офис / Коммерция</option>
-                <option value="Другое">Нестандартный объект</option>
+                <option value="club">Фитнес-клуб / спортплощадка</option>
+                <option value="brand">Бренд / рекламодатель</option>
+                <option value="city">Город / фонд / НКО</option>
+                <option value="edu">Образование / кампус</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label>Примерный объем (м² или количество)</label>
+              <label htmlFor="city">Город или регион</label>
               <input
-                type="number"
-                value={formData.volume}
-                onChange={(e) => setFormData({ ...formData, volume: e.target.value })}
-                required
+                id="city"
+                type="text"
+                placeholder="Например, Москва"
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
               />
             </div>
 
             <div className="form-group">
-              <label>Адрес или город</label>
-              <input
-                type="text"
-                placeholder="ул. Примерная, 10"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              />
+              <label htmlFor="goal">Главная цель</label>
+              <select
+                id="goal"
+                value={formData.goal}
+                onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+              >
+                <option value="reach">Охват и узнаваемость</option>
+                <option value="traffic">Поток в точку / на событие</option>
+                <option value="engagement">Вовлечение и удержание</option>
+                <option value="social">Социальный / образовательный эффект</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="budget">Бюджет (ориентир)</label>
+              <select
+                id="budget"
+                value={formData.budget}
+                onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+              >
+                <option value="discuss">Обсудим на созвоне</option>
+                <option value="pilot">Пилот / бартер</option>
+                <option value="mid">Средний проект</option>
+                <option value="large">Крупная кампания</option>
+              </select>
             </div>
 
             <button type="submit" className="btn btn-primary btn-block">
-              Получить расчет
+              Показать рекомендацию
             </button>
           </form>
+
+          {submitted && hint && (
+            <div className="brief-result" role="status">
+              <strong>{hint.title}</strong>
+              <br />
+              {hint.text}
+            </div>
+          )}
         </div>
       </div>
     </section>
